@@ -15,27 +15,56 @@ var definePlugin = new webpack.DefinePlugin({
 
 module.exports = {
   entry: {
-    app: [
-      'babel-polyfill',
-      path.resolve(__dirname, 'src/main.js')
-    ],
+    hello_word: path.resolve(__dirname, 'src/hello_word/main.js'),
+    snake: path.resolve(__dirname, 'src/snake/main.js'),
     vendor: ['pixi', 'p2', 'phaser', 'webfontloader']
   },
   devtool: 'cheap-source-map',
   output: {
     pathinfo: true,
     path: path.resolve(__dirname, 'dist'),
-    publicPath: './dist/',
-    filename: 'bundle.js'
+    filename: '[name]/bundle.js'
   },
   watch: true,
   plugins: [
     definePlugin,
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.bundle.js' }),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
-      template: './src/index.html',
-      chunks: ['vendor', 'app'],
+      filename: 'vendor.bundle.js',
+      chunks: ['vendor'],
+      chunksSortMode: 'manual',
+      minify: {
+        removeAttributeQuotes: false,
+        collapseWhitespace: false,
+        html5: false,
+        minifyCSS: false,
+        minifyJS: false,
+        minifyURLs: false,
+        removeComments: false,
+        removeEmptyAttributes: false
+      },
+      hash: false
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello word',
+      filename: 'hello_word/index.html',
+      chunks: ['hello_word'],
+      chunksSortMode: 'manual',
+      minify: {
+        removeAttributeQuotes: false,
+        collapseWhitespace: false,
+        html5: false,
+        minifyCSS: false,
+        minifyJS: false,
+        minifyURLs: false,
+        removeComments: false,
+        removeEmptyAttributes: false
+      },
+      hash: false
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Snake',
+      filename: 'snake/index.html',
+      chunks: ['snake'],
       chunksSortMode: 'manual',
       minify: {
         removeAttributeQuotes: false,
@@ -53,7 +82,12 @@ module.exports = {
       host: process.env.IP || '0.0.0.0',
       port: process.env.PORT || 5000,
       server: {
-        baseDir: ['./', './build']
+        baseDir: ['./', './dist'],
+        routes: {
+          '/snake': 'snake',
+          '/hello_word': 'hello_word',
+          '/vendor': 'vendor'
+        }
       }
     })
   ],

@@ -1,9 +1,9 @@
 {
-  "name": "js_gaming",
+  "name": "PhaserES6Webpack",
   "version": "1.2.1",
   "description": "",
-  "author": "Lucas Fonseca <lucas.fonsecar@gmail.com>",
-  "main": "index.js",
+  "author": "leandro cabrera <leandcabrera@gmail.com>",
+  "main": "hello_word/index.js",
   "scripts": {
     "dev": "webpack",
     "test": "eslint './src/**/*.js'"
