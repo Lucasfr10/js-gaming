@@ -29,7 +29,7 @@ module.exports = {
   plugins: [
     definePlugin,
     new HtmlWebpackPlugin({
-      filename: 'vendor.bundle.js',
+      filename: 'vendor/bundle.js',
       chunks: ['vendor'],
       chunksSortMode: 'manual',
       minify: {
